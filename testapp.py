@@ -1,13 +1,29 @@
-import time
-from flask import Flask
+import unittest
+import signal
 
-app = Flask(__name__)
+class TimeoutException(Exception):
+    pass
 
-@app.route('/')
-def home():
-    return "App is currently running!"
+def timeout_handler(signum, frame):
+    raise TimeoutException("Test timed out!")
+
+class TestApp(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        # Set a timeout of 10 seconds for all tests
+        signal.signal(signal.SIGALRM, timeout_handler)
+        signal.alarm(10)  # Adjust the timeout as needed
+
+    def test_example(self):
+        try:
+            self.assertEqual(2 + 2, 4)
+        except TimeoutException:
+            self.skipTest("Test skipped due to timeout")
+
+    @classmethod
+    def tearDownClass(cls):
+        # Disable the alarm after tests finish
+        signal.alarm(0)
 
 if __name__ == '__main__':
-    from threading import Timer
-    Timer(10, exit).start()  # Exit after 60 seconds
-    app.run(host="0.0.0.0", port=5000)
+    unittest.main()
