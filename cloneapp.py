@@ -9,7 +9,7 @@ def home():
     return "Please"
 
 def handle_shutdown(signal, frame):
-    print("Shutting down.")
+    print("Shutting down the service...")
     sys.exit(0)
 
 # Handle SIGINT (Ctrl+C) and SIGTERM (for Jenkins/Docker)
