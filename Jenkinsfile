@@ -38,7 +38,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying application...'
-                timeout(time: 15, unit: 'SECONDS') {  // ⏳ 10-second timeout
+                timeout(time: 30, unit: 'SECONDS') {  // ⏳ 10-second timeout
                     bat 'python cloneapp.py'
                 }
             }
