@@ -9,7 +9,12 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 script {
-                    bat 'git clone https://%GITHUB_TOKEN%@github.com/NirukoX/c-cd-jenkins-demo.git'
+                    bat '''
+                    if exist c-cd-jenkins-demo (
+                        rmdir /s /q c-cd-jenkins-demo
+                    )
+                    git clone https://%GITHUB_TOKEN%@github.com/NirukoX/c-cd-jenkins-demo.git
+                    '''
                 }
             }
         }
