@@ -1,8 +1,13 @@
-import unittest
+import time
+from flask import Flask
 
-class TestApp(unittest.TestCase):
-    def test_example(self):
-        self.assertEqual(2 + 2, 4)
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "App is running!"
 
 if __name__ == '__main__':
-    unittest.main()
+    from threading import Timer
+    Timer(10, exit).start()  # Exit after 60 seconds
+    app.run(host="0.0.0.0", port=5000)
