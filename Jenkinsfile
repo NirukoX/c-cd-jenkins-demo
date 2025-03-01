@@ -2,13 +2,15 @@ pipeline {
     agent any
 
     environment {
-        GITHUB_CREDENTIALS = credentials('GITHUB_CREDENTIAL_ID')
+        GITHUB_TOKEN = credentials('GITHUB_PAT')  // Securely fetch token from Jenkins
     }
 
     stages {
         stage('Clone Repository') {
             steps {
-                git credentialsId: 'MY_SECRET_KEY', url: 'https://github.com/NirukoX/c-cd-jenkins-demo.git', branch: 'main'
+                script {
+                    sh 'git clone https://$GITHUB_TOKEN@github.com/NirukoX/c-cd-jenkins-demo.git'
+                }
             }
         }
 
