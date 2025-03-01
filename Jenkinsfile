@@ -26,10 +26,10 @@ pipeline {
         }
 
         stage('Run Unit Tests') {
-            timeout(time: 10, unit: 'SECONDS') {  // ⏳ 10-second timeout
-                steps {
+            steps {
+                timeout(time: 10, unit: 'SECONDS') {  // ⏳ 10-second timeout inside `steps`
                     script {
-                        bat 'python -m unittest testapp.py || exit 0'  // Prevents failure
+                        bat 'python -m unittest testapp.py || exit 0'  // Prevents build failure
                     }
                 }
             }
@@ -37,8 +37,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                echo 'Deploying application...'
-                timeout(time: 30, unit: 'SECONDS') {  // ⏳ 10-second timeout
+                timeout(time: 10, unit: 'SECONDS') {  // ⏳ 10-second timeout inside `steps`
                     bat 'python cloneapp.py'
                 }
             }
