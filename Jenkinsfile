@@ -27,7 +27,7 @@ pipeline {
 
         stage('Run Unit Tests') {
             steps {
-                bat 'python -m unittest discover'
+                bat 'python -m unittest discover -s tests -p "testapp.py"'
             }
         }
 
