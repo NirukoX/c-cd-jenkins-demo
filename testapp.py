@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return "App is running!"
+    return "App is currently running!"
 
 if __name__ == '__main__':
     from threading import Timer
