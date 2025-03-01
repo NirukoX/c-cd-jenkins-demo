@@ -6,14 +6,6 @@ pipeline {
     }
 
     stages {
-        stage('Clone Repository') {
-            steps {
-                script {
-                    bat 'git clone https://%GITHUB_TOKEN%@github.com/NirukoX/c-cd-jenkins-demo.git'
-                }
-            }
-        }
-
         stage('Run Unit Tests') {
             steps {
                 bat 'python -m unittest discover'
